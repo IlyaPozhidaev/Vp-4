@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:Notepad.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="600"
+             x:Class="Notepad.Views.Pages.FileListView">
+
+	<UserControl.Resources>
+		<vm:BitmapAssetValueConverter x:Key="variableImage"/>
+	</UserControl.Resources>
+
+	<Grid RowDefinitions="*, 50, 40">
+		<ListBox Name="fileListBox" Grid.Row="0" SelectionMode="Single" SelectedItem="{Binding File}" Items="{Binding Directories}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid ColumnDefinitions="60, *">
+						<Rectangle ZIndex="10" Grid.ColumnSpan="2" Grid.Column="0" DoubleTapped="DoubleClickedEvent" Fill="Transparent" />
+						<Image Grid.Column="0" Height="40" Width="40" Source="{Binding Image, Converter={StaticResource variableImage}}"/>
+						<TextBlock Grid.Column="1" Text="{Binding Name}"/>
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		<TextBox Name="fileTextBox" Grid.Row="1" Text="{Binding TextBoxText}"/>
+		<Grid ColumnDefinitions="*, *" Grid.Row="2">
+			<Button x:Name="okButton" Name="okButton" Grid.Column="0" Content="{Binding ButtonContent}" Command="{Binding OpenCommand}"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"/>
+			<Button Name="cancelButton" Grid.Column="1" Content="Cancel" Command="{Binding CancelCommand}"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"/>
+		</Grid>
+	</Grid>  
+</UserControl>
